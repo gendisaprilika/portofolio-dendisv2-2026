@@ -3,10 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Illuminate\Support\Facades\Response;
+use App\Models\Profile;
+use App\Models\Project;
+use App\Models\Skill;
+use App\Models\Contact;
 
-/* NOTE: Do Not Remove
-/ Livewire asset handling if using sub folder in domain
-*/
+Route::get('/', function () {
+    return view('welcome', [
+        'profile' => Profile::first(),
+        'projects' => Project::all(),
+        'skills' => Skill::all(),
+        'contacts' => Contact::all(),
+    ]);
+});
 
 Livewire::setUpdateRoute(function ($handle) {
     return Route::post(config('app.asset_prefix') . '/livewire/update', $handle);
@@ -18,6 +27,4 @@ Livewire::setScriptRoute(function ($handle) {
 /*
 / END
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+
